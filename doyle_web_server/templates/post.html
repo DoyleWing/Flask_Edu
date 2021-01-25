@@ -1,0 +1,44 @@
+{% extends "general_layout.html"%}
+{% block content %}
+    
+    <article class="media content-section">
+        <div class="media-body">
+                <div class="article-metadata">
+                    <img class="rounded-circle article-img" src="{{ url_for('static', filename='user_profile/'+post.author.image_file)}}">
+                    <a class="mr-2" href="{{ url_for('user_posts',username=post.author.username) }}">{{ post.author.username }}</a>   
+                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small> <!--strftime转换时间格式-->
+                    {% if post.author == current_user %}
+                        <div>
+                            <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_post', post_id=post.id)}}">更新文章</a>
+                            
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                点我删除文章
+                            </button>    
+                        </div>
+                    {% endif %}
+            </div>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+          </div>
+      </article>
+
+      <!-- Modal   未实现，不知道为什么-->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock content %}

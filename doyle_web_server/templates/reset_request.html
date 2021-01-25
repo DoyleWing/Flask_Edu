@@ -1,0 +1,34 @@
+{% extends "general_layout.html"%}   <!--继承general_layout.html-->
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}  <!--预防攻击-->
+            <fieldset class="form-group">
+                <legend class="border-bottom mk-4">邮箱重置密码~</legend>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label")}}
+                    {% if form.email.errors %} <!--有错误的时候-->
+                        {{ form.email(class ="form-control form-control-lg is-invalid" )}}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span> {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form=control-lg")}}
+                    {% endif %}
+                </div>
+                
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class = "btn btn-outline-info")}} <!--提交按钮-->
+            </div>
+        </form>
+    </div>
+
+    <div class="border-top pt-3">
+        <small class="text-muted">  <!--小字-->
+            还没注册账户 <a class="ml-2" href="{{ url_for('register')}}">点击注册</a>
+        </small>
+    </div>
+{% endblock content %}
